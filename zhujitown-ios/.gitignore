@@ -1,0 +1,16 @@
+# Xcode
+build/
+outputs/
+DerivedData/
+*.xcarchive
+xcuserdata/
+*.xcuserstate
+*.persistentState
+*.moved-aside
+
+# macOS
+.DS_Store
+
+# 本地产物
+*.ipa
+*.app/

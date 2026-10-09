@@ -1,0 +1,77 @@
+name: 构建 iOS IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 构建模式
+        required: true
+        default: unsigned
+        type: choice
+        options:
+          - unsigned
+          - development
+          - adhoc
+
+defaults:
+  run:
+    working-directory: zhujitown-ios
+
+jobs:
+  build:
+    # macOS 运行器自带 Xcode，可用于真机编译签名
+    runs-on: macos-14
+    timeout-minutes: 60
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 选择 Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+
+      - name: 构建未签名 IPA
+        if: github.event.inputs.mode != 'development' && github.event.inputs.mode != 'adhoc'
+        run: bash scripts/build_unsigned_ipa.sh
+
+      - name: 导入签名证书
+        if: github.event.inputs.mode == 'development' || github.event.inputs.mode == 'adhoc'
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.IOS_SIGNING_CERT_P12 }}
+          p12-password: ${{ secrets.IOS_SIGNING_CERT_PASSWORD }}
+
+      - name: 安装描述文件
+        if: github.event.inputs.mode == 'development' || github.event.inputs.mode == 'adhoc'
+        env:
+          PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+        run: |
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          echo "$PROFILE" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/zhujitown.mobileprovision"
+
+      - name: 构建签名 IPA
+        if: github.event.inputs.mode == 'development' || github.event.inputs.mode == 'adhoc'
+        env:
+          TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+        run: bash scripts/build_signed_ipa.sh ${{ github.event.inputs.mode }}
+
+      - name: 打包插件 zip（随 IPA 一起下载）
+        working-directory: .
+        run: |
+          mkdir -p outputs
+          (cd zhujitown-auth && zip -qr ../outputs/zhujitown-auth.zip zhujitown-auth.php README.md) || true
+
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZhuJiTown-iOS-IPA
+          path: |
+            zhujitown-ios/outputs/**/*.ipa
+            zhujitown-ios/outputs/**/*.zip
+            outputs/**/*.zip
+          if-no-files-found: error
+          retention-days: 30

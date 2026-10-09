@@ -1,0 +1,25 @@
+# 本机记忆与临时文件
+.workbuddy/
+
+# 构建产物
+outputs/
+*.apk
+*.ipa
+
+# Android
+zhujitown-android/.gradle/
+zhujitown-android/build/
+zhujitown-android/app/build/
+zhujitown-android/local.properties
+zhujitown-android/build.log
+zhujitown-android/build_rel.log
+zhujitown-android/.kotlin/
+
+# iOS
+zhujitown-ios/outputs/
+zhujitown-ios/build/
+zhujitown-ios/DerivedData/
+
+# 系统
+.DS_Store
+Thumbs.db

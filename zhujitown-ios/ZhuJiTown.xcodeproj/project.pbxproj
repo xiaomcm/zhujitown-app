@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		50EB3695C092BA93731F7B66 /* ZhuJiTownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F44C69F2FC6F1FAD21B22 /* ZhuJiTownApp.swift */; };
+		D6A93E2C97D63294EE8E0F80 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E144657DEB7A50D8313CC3F6 /* Models.swift */; };
+		09C8171CFABC105A856E4255 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085BD97C35871B2964BF54C4 /* AppConfig.swift */; };
+		A77FF370521D964B1A2116DD /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A991CDEAE9799B5068FDFEFC /* Auth.swift */; };
+		FF54C757EA164A5DE75930DF /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB8C21E40712EC7F5DBA474 /* Prefs.swift */; };
+		60B2EFA6921F54B5B13526D7 /* WPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C953D9F9765CBB96BA56 /* WPClient.swift */; };
+		36A3F01ED4CABCE0E533E0E1 /* ArticleParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA25F810FEDB3AD6538237B0 /* ArticleParser.swift */; };
+		BD79113E4D1347182C5681C7 /* MiniHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882833570894AD8CCCB2EFBA /* MiniHTML.swift */; };
+		EED69FC3181C48F734018C1F /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D87A8E108607B2D5C20E1 /* AppModel.swift */; };
+		CF64FA86B194F57D3D073950 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C637B0F8CF64F53B30D0F2D1 /* FeedModel.swift */; };
+		A318D6A597FFF8AA47CC57B3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6048DD9D445F6FEA8E6CAF /* AccountView.swift */; };
+		BC2B187387826A253A9F0B1E /* ArticleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94393CEDBCCD44A0BA8F4864 /* ArticleRenderer.swift */; };
+		635A60AD8B293373ACA34043 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E3E18FE612FA246988024 /* CachedImage.swift */; };
+		1637A4C5A8D238A4C7EC4EA3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F71388FDF823167DB9360E /* CategoriesView.swift */; };
+		D72E3FAC0C57843BC40FAF3A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92FDAD3A36A9B682BFB093C /* DetailView.swift */; };
+		8B95C079C3164E421D2FBFA3 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB922BC47A34741405DA6E4 /* FavoritesView.swift */; };
+		ED411EE15995B7C6973607C3 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB08E75A96ECB56026BED16 /* FeedView.swift */; };
+		F6B90CF8EC739AB7BF99DCD4 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */; };
+		6C71D776EDC6E5494AAEC186 /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */; };
+		754A9CA7D06FD8B96794E1ED /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF814F39692E7277BA09693 /* RichText.swift */; };
+		9CDDAFAA3981E55BDD6AF5FE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE9287A904FFF51F7D9E006 /* RootView.swift */; };
+		10DBD14F872FA7F78F94A0B6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */; };
+		F0C3048B9C4C204F3473B058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C9473EC2B62A7FC7AC2F682 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F343E47D0235ECE4DB5EAE8F /* ZhuJiTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhuJiTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		099B62B41DC077FE20C7FBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C9473EC2B62A7FC7AC2F682 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9E2F44C69F2FC6F1FAD21B22 /* ZhuJiTownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhuJiTownApp.swift; sourceTree = "<group>"; };
+		E144657DEB7A50D8313CC3F6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		085BD97C35871B2964BF54C4 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		A991CDEAE9799B5068FDFEFC /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		5CB8C21E40712EC7F5DBA474 /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
+		18E1C953D9F9765CBB96BA56 /* WPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPClient.swift; sourceTree = "<group>"; };
+		CA25F810FEDB3AD6538237B0 /* ArticleParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleParser.swift; sourceTree = "<group>"; };
+		882833570894AD8CCCB2EFBA /* MiniHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniHTML.swift; sourceTree = "<group>"; };
+		AA9D87A8E108607B2D5C20E1 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		C637B0F8CF64F53B30D0F2D1 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		6E6048DD9D445F6FEA8E6CAF /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		94393CEDBCCD44A0BA8F4864 /* ArticleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRenderer.swift; sourceTree = "<group>"; };
+		DD7E3E18FE612FA246988024 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
+		27F71388FDF823167DB9360E /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		C92FDAD3A36A9B682BFB093C /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		3EB922BC47A34741405DA6E4 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		1EB08E75A96ECB56026BED16 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
+		807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		0FF814F39692E7277BA09693 /* RichText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
+		8FE9287A904FFF51F7D9E006 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		68ED96E173B8E85EFF925036 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22EA56DD29576E62BCCCA1AA = {
+			isa = PBXGroup;
+			children = (
+				EAE9011C23DCA5E5F486AF2D /* ZhuJiTown */,
+				A511EC6FC8BCAFC6B21CD81D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CBE7D790BBE2BD0D8B77EF39 /* App */ = {
+			isa = PBXGroup;
+			children = (
+					9E2F44C69F2FC6F1FAD21B22 /* ZhuJiTownApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		11A8C6AA5BBE839192CCAD2A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+					E144657DEB7A50D8313CC3F6 /* Models.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3DD9F91D8C69F26F9974FB2C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+					085BD97C35871B2964BF54C4 /* AppConfig.swift */,
+					A991CDEAE9799B5068FDFEFC /* Auth.swift */,
+					5CB8C21E40712EC7F5DBA474 /* Prefs.swift */,
+					18E1C953D9F9765CBB96BA56 /* WPClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E825934178EB474A63FA5617 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+					CA25F810FEDB3AD6538237B0 /* ArticleParser.swift */,
+					882833570894AD8CCCB2EFBA /* MiniHTML.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		E5CFB0702A6CE47D93A5A8A3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+					AA9D87A8E108607B2D5C20E1 /* AppModel.swift */,
+					C637B0F8CF64F53B30D0F2D1 /* FeedModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		521C7ADFE310E932DB3AAC3B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+					6E6048DD9D445F6FEA8E6CAF /* AccountView.swift */,
+					94393CEDBCCD44A0BA8F4864 /* ArticleRenderer.swift */,
+					DD7E3E18FE612FA246988024 /* CachedImage.swift */,
+					27F71388FDF823167DB9360E /* CategoriesView.swift */,
+					C92FDAD3A36A9B682BFB093C /* DetailView.swift */,
+					3EB922BC47A34741405DA6E4 /* FavoritesView.swift */,
+					1EB08E75A96ECB56026BED16 /* FeedView.swift */,
+					50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */,
+					807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */,
+					0FF814F39692E7277BA09693 /* RichText.swift */,
+					8FE9287A904FFF51F7D9E006 /* RootView.swift */,
+					7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		EAE9011C23DCA5E5F486AF2D /* ZhuJiTown */ = {
+			isa = PBXGroup;
+			children = (
+				CBE7D790BBE2BD0D8B77EF39 /* App */,
+				11A8C6AA5BBE839192CCAD2A /* Model */,
+				3DD9F91D8C69F26F9974FB2C /* Network */,
+				E825934178EB474A63FA5617 /* Parser */,
+				E5CFB0702A6CE47D93A5A8A3 /* ViewModel */,
+				521C7ADFE310E932DB3AAC3B /* UI */,
+				E5E98B546EE9848A91FF7C1F /* Resources */,
+				099B62B41DC077FE20C7FBDF /* Info.plist */,
+			);
+			path = ZhuJiTown;
+			sourceTree = "<group>";
+		};
+		E5E98B546EE9848A91FF7C1F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1C9473EC2B62A7FC7AC2F682 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A511EC6FC8BCAFC6B21CD81D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F343E47D0235ECE4DB5EAE8F /* ZhuJiTown.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E8A3AD980EC179856012B7E /* ZhuJiTown */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 250D589C467DF9EAC7F733C2 /* Build configuration list for PBXNativeTarget "ZhuJiTown" */;
+			buildPhases = (
+				2A976C55E781D531D45C10A3 /* Sources */,
+				68ED96E173B8E85EFF925036 /* Frameworks */,
+				D358F9953273580C5B97B1E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZhuJiTown;
+			productName = ZhuJiTown;
+			productReference = F343E47D0235ECE4DB5EAE8F /* ZhuJiTown.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					0E8A3AD980EC179856012B7E = {
+						CreatedOnToolsVersion = 15.2;
+					ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 9B03126AA1ABD3AAFEAFB219 /* Build configuration list for PBXProject "ZhuJiTown" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = zh_CN;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				zh_CN,
+			);
+			mainGroup = 22EA56DD29576E62BCCCA1AA;
+			productRefGroup = A511EC6FC8BCAFC6B21CD81D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E8A3AD980EC179856012B7E /* ZhuJiTown */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D358F9953273580C5B97B1E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0C3048B9C4C204F3473B058 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A976C55E781D531D45C10A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50EB3695C092BA93731F7B66 /* ZhuJiTownApp.swift in Sources */,
+				D6A93E2C97D63294EE8E0F80 /* Models.swift in Sources */,
+				09C8171CFABC105A856E4255 /* AppConfig.swift in Sources */,
+				A77FF370521D964B1A2116DD /* Auth.swift in Sources */,
+				FF54C757EA164A5DE75930DF /* Prefs.swift in Sources */,
+				60B2EFA6921F54B5B13526D7 /* WPClient.swift in Sources */,
+				36A3F01ED4CABCE0E533E0E1 /* ArticleParser.swift in Sources */,
+				BD79113E4D1347182C5681C7 /* MiniHTML.swift in Sources */,
+				EED69FC3181C48F734018C1F /* AppModel.swift in Sources */,
+				CF64FA86B194F57D3D073950 /* FeedModel.swift in Sources */,
+				A318D6A597FFF8AA47CC57B3 /* AccountView.swift in Sources */,
+				BC2B187387826A253A9F0B1E /* ArticleRenderer.swift in Sources */,
+				635A60AD8B293373ACA34043 /* CachedImage.swift in Sources */,
+				1637A4C5A8D238A4C7EC4EA3 /* CategoriesView.swift in Sources */,
+				D72E3FAC0C57843BC40FAF3A /* DetailView.swift in Sources */,
+				8B95C079C3164E421D2FBFA3 /* FavoritesView.swift in Sources */,
+				ED411EE15995B7C6973607C3 /* FeedView.swift in Sources */,
+				F6B90CF8EC739AB7BF99DCD4 /* PhotoViewer.swift in Sources */,
+				6C71D776EDC6E5494AAEC186 /* PostCard.swift in Sources */,
+				754A9CA7D06FD8B96794E1ED /* RichText.swift in Sources */,
+				9CDDAFAA3981E55BDD6AF5FE /* RootView.swift in Sources */,
+				10DBD14F872FA7F78F94A0B6 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FDFC5C27D014FD4CE0C9C85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D19D776FD7336963B711DF3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B0FD5BFB5D2BFCF412CB2F08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ZhuJiTown/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujitown.app;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DDCCB1EB41F0CDAB7C0C6A71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ZhuJiTown/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujitown.app;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B03126AA1ABD3AAFEAFB219 /* Build configuration list for PBXProject "ZhuJiTown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDFC5C27D014FD4CE0C9C85B /* Debug */,
+				D19D776FD7336963B711DF3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		250D589C467DF9EAC7F733C2 /* Build configuration list for PBXNativeTarget "ZhuJiTown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FD5BFB5D2BFCF412CB2F08 /* Debug */,
+				DDCCB1EB41F0CDAB7C0C6A71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+}

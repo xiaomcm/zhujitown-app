@@ -1,0 +1,48 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: zhujitown-android
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Create local.properties
+        # App 不再内置管理员凭据：只写站点地址（可选用 secrets.SITE_URL 覆盖）
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "SITE_URL=${{ secrets.SITE_URL || 'https://www.zhujitown.com' }}" >> local.properties
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Release APK
+        run: ./gradlew --no-daemon assembleRelease
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZhuJiTown-Android-APK
+          path: zhujitown-android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 30
