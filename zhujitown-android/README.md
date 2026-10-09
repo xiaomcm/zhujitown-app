@@ -39,26 +39,21 @@
 ./gradlew assembleRelease   # 发布包（未签名）
 ```
 
-## 站点与账号
+## 站点与密钥配置
 
-站点地址写在 `local.properties`（**已 gitignore，不进版本库**）：
+默认已经填好站点与管理员凭据，位于 `local.properties`（**已在 .gitignore 中，不会进版本库**）：
 
 ```properties
 SITE_URL=https://www.zhujitown.com
+ADMIN_USER=admin
+ADMIN_APP_PASSWORD=你的应用密码
 ```
 
-> **工程里没有任何内置的管理员凭据**。账号由用户在 App 内登录得到，令牌存本机 SharedPreferences。
+构建时会被注入 `BuildConfig.DEFAULT_*`，App 首次启动即直连站点。  
+运行时也可以在 App 内「设置」页修改站点地址和凭据（保存在手机本地，不会写回代码）。
 
-App 支持三条登录路径，会自动依次探测：
-
-| 优先级 | 后端 | 条件 | 能干什么 |
-|---|---|---|---|
-| 1 | ZhuJiTown Auth 插件 | 站点装了 `zhujitown-auth` 插件 | 登录 + 注册 + 找回密码 |
-| 2 | JWT Authentication 插件 | 站点装了 jwt-auth | 登录 |
-| 3 | WordPress 应用密码 | 无需插件，WP 自带 | 登录 |
-
-登录成功后取得的 `canManage`（取决于 WP 角色是否有 `edit_posts`）决定「草稿箱」入口是否显示。
-入口：底部「我的」→ 账号；页面有登录 / 注册 / 找回密码 / 退出。
+> 凭据只用于读取草稿（`status=draft`）。若要发布到应用市场，建议把 `local.properties` 里的
+> `ADMIN_USER`/`ADMIN_APP_PASSWORD` 清空后再打包，避免管理员凭据被打进 APK。
 
 ## 目录结构
 
@@ -97,8 +92,8 @@ app/src/main/java/com/zhujitown/app/
 
 ## 云编译 APK（无需本地 Android Studio）
 
-把目录推到 GitHub 仓库后，根目录的 `.github/workflows/android.yml` 会在每次 push / 手动触发时编译
-并上传 Release APK 到 Actions 产物。可选：在仓库 Settings → Secrets 里加 `SITE_URL` 覆盖默认站点，
-**不需要配置任何凭据类 Secret**。
+把目录推到 GitHub 仓库后，`.github/workflows/android.yml` 会在每次 push / 手动触发时编译
+并上传 `app-release.apk` 到 Actions 产物。若要用管理员凭据，在仓库 Settings → Secrets 里加
+`ADMIN_USER`、`ADMIN_APP_PASSWORD`、`SITE_URL` 三个 secret（没有则用默认值）。
 
 发布签名：在 workflow 里补 `signingConfig` 或使用 `r0adkll/sign-android-release` action。

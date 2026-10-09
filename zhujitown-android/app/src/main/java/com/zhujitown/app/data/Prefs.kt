@@ -99,10 +99,7 @@ class Prefs(context: Context) {
                 roles = roles,
                 canManage = canManage,
                 backend = b,
-                expireAt = expireAt,
-                // 应用密码模式下必须回填，否则重启后 Basic Auth 头会丢失（草稿箱/评论失效）
-                basicUser = basicUser,
-                basicPass = basicPass
+                expireAt = expireAt
             )
         }
 

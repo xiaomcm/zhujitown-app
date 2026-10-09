@@ -49,17 +49,11 @@ import com.zhujitown.app.data.Cache
 import com.zhujitown.app.data.Category
 import com.zhujitown.app.data.FeedMode
 import com.zhujitown.app.data.Post
-import com.zhujitown.app.ui.components.PostCard
 import com.zhujitown.app.ui.components.PostList
 import com.zhujitown.app.ui.screens.AccountScreen
 import com.zhujitown.app.ui.screens.CategoriesScreen
 import com.zhujitown.app.ui.screens.DetailScreen
-import com.zhujitown.app.ui.screens.DraftsScreen
 import com.zhujitown.app.ui.screens.FavoritesScreen
-import com.zhujitown.app.ui.screens.HistoryScreen
-import com.zhujitown.app.ui.screens.MyCommentsScreen
-import com.zhujitown.app.ui.screens.MyPostsScreen
-import com.zhujitown.app.ui.screens.ProfileScreen
 import com.zhujitown.app.ui.screens.SettingsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,8 +66,7 @@ fun AppRoot(vm: AppViewModel, initialPostId: Int) {
     var homeCategoryId by rememberSaveable { mutableIntStateOf(0) }
     var searchOpen by rememberSaveable { mutableStateOf(false) }
     var searchText by rememberSaveable { mutableStateOf("") }
-    /** 个人中心子页面：""=个人中心，posts/comments/favorites/history/account/settings/drafts */
-    var profileDest by rememberSaveable { mutableStateOf("") }
+    var accountOpen by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(initialPostId) {
         if (initialPostId > 0) openPostId = initialPostId
@@ -89,17 +82,20 @@ fun AppRoot(vm: AppViewModel, initialPostId: Int) {
         return
     }
 
+    if (accountOpen) {
+        AccountScreen(vm = vm, onBack = { accountOpen = false })
+        return
+    }
+
     val inSearch = searchOpen
     val inCategory = tab == 1 && openCategoryId > 0
 
-    BackHandler(enabled = inSearch || inCategory || profileDest.isNotEmpty()) {
+    BackHandler(enabled = inSearch || inCategory) {
         if (inSearch) {
             searchOpen = false
             vm.refresh(FeedMode.LATEST)
-        } else if (inCategory) {
+        } else {
             openCategoryId = 0
-        } else if (profileDest.isNotEmpty()) {
-            profileDest = ""
         }
     }
 
@@ -123,8 +119,6 @@ fun AppRoot(vm: AppViewModel, initialPostId: Int) {
         Cache.save(context, post)
         openPostId = post.id
     }
-
-    val openPostById: (Int) -> Unit = { openPostId = it }
 
     Scaffold(
         topBar = {
@@ -260,36 +254,10 @@ fun AppRoot(vm: AppViewModel, initialPostId: Int) {
                     }
                 }
                 tab == 2 -> FavoritesScreen(vm = vm, onOpen = openPost)
-                else -> when (profileDest) {
-                    "posts" -> MyPostsScreen(
-                        vm = vm,
-                        onBack = { profileDest = "" },
-                        onOpenPostId = openPostById
-                    )
-                    "comments" -> MyCommentsScreen(
-                        vm = vm,
-                        onBack = { profileDest = "" },
-                        onOpenPostId = openPostById
-                    )
-                    "favorites" -> FavoritesScreen(vm = vm, onOpen = openPost)
-                    "history" -> HistoryScreen(
-                        vm = vm,
-                        onBack = { profileDest = "" },
-                        onOpenPost = openPostById
-                    )
-                    "account" -> AccountScreen(vm = vm, onBack = { profileDest = "" })
-                    "settings" -> SettingsScreen(vm = vm, onOpenAccount = { profileDest = "account" })
-                    "drafts" -> DraftsScreen(
-                        vm = vm,
-                        onBack = { profileDest = "" },
-                        onOpenPostId = openPostById
-                    )
-                    else -> ProfileScreen(
-                        vm = vm,
-                        onNavigate = { profileDest = it },
-                        onOpenPost = openPostById
-                    )
-                }
+                else -> SettingsScreen(
+                    vm = vm,
+                    onOpenAccount = { accountOpen = true }
+                )
             }
         }
     }

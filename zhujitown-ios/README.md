@@ -140,26 +140,17 @@ python3 scripts/make_xcodeproj.py
 
 脚本会重新扫描 `ZhuJiTown/` 下的源码目录，重建 `project.pbxproj`、AppIcon 与 Info.plist。
 
-## 账号登录 / 注册（对齐安卓）
-
-工程内**没有任何内置凭据**。App 支持三条路径，`AuthClient` 启动时自动探测：
-
-| 优先级 | 后端 | 条件 | 能力 |
-|---|---|---|---|
-| 1 | ZhuJiTown Auth 插件 | `/wp-json/zhujitown/v1/ping` 返回 200 | 登录 + 注册 + 找回密码 |
-| 2 | JWT Authentication 插件 | `/wp-json/jwt-auth/v1/token` 存在 | 登录 |
-| 3 | WordPress 应用密码 | 无需插件 | 登录（拿 `users/me?context=edit` 判定权限） |
-
-入口：「我的」→ 账号 → `AccountView`（登录 / 注册 / 找回密码 / 退出）。
-会话存 UserDefaults（`PrefKey.session`），随 App 重装清除。
-
-服务端插件在 `../zhujitown-auth/` 目录，装上才能用 App 内注册。
-
 ## 安全提示
 
-- 令牌落在本机 UserDefaults，**不进版本库、不随包分发**
-- 服务端令牌由站点 `AUTH_SALT` 派生的 HMAC 密钥签名，站点外无法伪造；改一次 `AUTH_SALT` 即可全员下线
-- 登录接口有 IP 级限流（5 分钟 10 次）
+`ZhuJiTown/Network/AppConfig.swift` 里预填了站点管理凭据（用于草稿箱预览未发布文章）。
+
+**对外分发前请把 `adminAppPassword` 清空**：
+
+```swift
+static let adminAppPassword = ""
+```
+
+清空后 App 仍能正常浏览所有已发布内容，只是「草稿箱」需要在「设置」里手填凭据。
 
 ## 已知限制
 

@@ -11,9 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.io.IOException
@@ -75,35 +73,6 @@ interface WpService {
         @Query("order") order: String = "asc",
         @Query("status") status: String = "approve"
     ): List<Comment>
-
-    /** 个人中心：我的文章（按作者） */
-    @GET("posts")
-    suspend fun postsByAuthor(
-        @Query("author") author: Int,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int,
-        @Query("_embed") embed: Boolean = true
-    ): retrofit2.Response<List<Post>>
-
-    /** 个人中心：我的评论（按作者，需登录态 Authorization） */
-    @GET("comments")
-    suspend fun commentsByAuthor(
-        @Query("author") author: Int,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int,
-        @Query("orderby") orderBy: String = "date",
-        @Query("order") order: String = "desc",
-        @Query("status") status: String = "approve"
-    ): retrofit2.Response<List<Comment>>
-
-    /**
-     * 发表评论。站点若开启「必须登录才能评论」，需要带 Authorization：
-     *  - 应用密码登录 → Basic（由 ApiClient 统一注入）
-     *  - JWT 插件登录 → Bearer
-     * 自建插件令牌 WP 不认，那条路径改走 AuthService.pluginComment()
-     */
-    @POST("comments")
-    suspend fun postComment(@Body body: NewComment): Comment
 
     @GET("posts")
     suspend fun bySlug(
