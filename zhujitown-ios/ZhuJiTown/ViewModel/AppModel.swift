@@ -11,6 +11,19 @@ final class AppModel: ObservableObject {
     @Published var categoriesLoading = false
     @Published var notice: String?
 
+    // MARK: 个人中心（登录后可用）
+
+    @Published var myPosts: [Post] = []
+    @Published var myPostsTotal = 0
+    @Published var myComments: [Comment] = []
+    @Published var myCommentsTotal = 0
+    @Published var draftPosts: [Post] = []
+    @Published var myLoading = false
+    @Published var myLoadingMore = false
+    @Published var draftLoading = false
+
+    private let myPerPage = 15
+
     // MARK: 账号（用户在 App 内登录，工程不再内置任何管理员凭据）
 
     @Published var session: Session? {
@@ -153,6 +166,85 @@ final class AppModel: ObservableObject {
             categories = list.sorted { ($0.count, $0.name) > ($1.count, $1.name) }
         } catch {
             notice = error.localizedDescription
+        }
+    }
+
+    // MARK: 个人中心
+
+    /// 进入个人中心时一次性拉取「我的文章」与「我的评论」总数与首页
+    func loadMyContent() async {
+        await loadMyPosts()
+        await loadMyComments()
+    }
+
+    func loadMyPosts() async {
+        guard let uid = session?.userID, uid > 0 else {
+            myPosts = []; myPostsTotal = 0; return
+        }
+        myLoading = true
+        defer { myLoading = false }
+        do {
+            let r = try await WPClient.shared.postsByAuthor(author: uid, page: 1, perPage: myPerPage)
+            myPosts = r.items
+            myPostsTotal = r.total
+        } catch {
+            notice = "加载我的文章失败：\(error.localizedDescription)"
+        }
+    }
+
+    func loadMoreMyPosts() async {
+        guard let uid = session?.userID, uid > 0 else { return }
+        guard !myLoadingMore, myPosts.count < myPostsTotal else { return }
+        myLoadingMore = true
+        defer { myLoadingMore = false }
+        let page = myPosts.count / myPerPage + 1
+        do {
+            let r = try await WPClient.shared.postsByAuthor(author: uid, page: page, perPage: myPerPage)
+            myPosts.append(contentsOf: r.items)
+        } catch {
+            notice = "加载更多文章失败：\(error.localizedDescription)"
+        }
+    }
+
+    func loadMyComments() async {
+        guard let uid = session?.userID, uid > 0 else {
+            myComments = []; myCommentsTotal = 0; return
+        }
+        myLoading = true
+        defer { myLoading = false }
+        do {
+            let r = try await WPClient.shared.commentsByAuthor(author: uid, page: 1, perPage: myPerPage)
+            myComments = r.items
+            myCommentsTotal = r.total
+        } catch {
+            notice = "加载我的评论失败：\(error.localizedDescription)"
+        }
+    }
+
+    func loadMoreMyComments() async {
+        guard let uid = session?.userID, uid > 0 else { return }
+        guard !myLoadingMore, myComments.count < myCommentsTotal else { return }
+        myLoadingMore = true
+        defer { myLoadingMore = false }
+        let page = myComments.count / myPerPage + 1
+        do {
+            let r = try await WPClient.shared.commentsByAuthor(author: uid, page: page, perPage: myPerPage)
+            myComments.append(contentsOf: r.items)
+        } catch {
+            notice = "加载更多评论失败：\(error.localizedDescription)"
+        }
+    }
+
+    /// 草稿箱：仅管理员（canManage）可见；draft 需在 context=edit 下由 Bearer/Basic 鉴权读取
+    func loadDrafts() async {
+        guard canManage else { draftPosts = []; return }
+        draftLoading = true
+        defer { draftLoading = false }
+        do {
+            let r = try await WPClient.shared.posts(status: "draft", perPage: myPerPage)
+            draftPosts = r.items
+        } catch {
+            notice = "加载草稿失败：\(error.localizedDescription)"
         }
     }
 

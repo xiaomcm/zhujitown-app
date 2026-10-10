@@ -21,6 +21,10 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     private val api get() = ApiClient.get(app)
     private val pageSize = 20
 
+    /** 阅读历史（最近浏览，倒序） */
+    var history by mutableStateOf<List<HistoryEntry>>(History.all(app))
+        private set
+
     var categories by mutableStateOf<List<Category>>(emptyList())
         private set
 
@@ -303,6 +307,153 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     }.getOrDefault(emptyList())
 
     fun favoritePosts(): List<Post> = Cache.loadAll(app, prefs.favorites)
+
+    // ---------------------------- 阅读历史 ----------------------------
+
+    fun refreshHistory() {
+        history = History.all(app)
+    }
+
+    fun recordHistory(post: Post, progress: Float = 0f) {
+        History.record(app, post, progress)
+        refreshHistory()
+    }
+
+    fun updateProgress(id: Int, progress: Float) {
+        History.progress(app, id, progress)
+    }
+
+    fun removeHistory(id: Int) {
+        History.remove(app, id)
+        refreshHistory()
+    }
+
+    fun clearHistory() {
+        History.clear(app)
+        history = emptyList()
+    }
+
+    // ---------------------------- 个人中心 ----------------------------
+
+    var myPosts by mutableStateOf<List<Post>>(emptyList())
+        private set
+    var myPostsTotal by mutableStateOf(0)
+        private set
+    var myComments by mutableStateOf<List<Comment>>(emptyList())
+        private set
+    var myCommentsTotal by mutableStateOf(0)
+        private set
+    var myLoading by mutableStateOf(false)
+        private set
+    var myLoadingMore by mutableStateOf(false)
+        private set
+    private var myPage = 1
+
+    /** 收藏数（本地） */
+    val favoritesCount: Int get() = prefs.favorites.size
+
+    /** 进入个人中心时拉取「我的文章 / 我的评论」统计与首页 */
+    fun loadMyContent() {
+        val s = session ?: return
+        if (s.userId <= 0) return
+        myLoading = true
+        viewModelScope.launch {
+            runCatching {
+                val postsResp = withContext(Dispatchers.IO) {
+                    api.postsByAuthor(author = s.userId, page = 1, perPage = 20)
+                }
+                myPosts = postsResp.body().orEmpty()
+                myPostsTotal = postsResp.headers()["X-WP-Total"]?.toIntOrNull() ?: myPosts.size
+                myPage = 1
+                val cResp = withContext(Dispatchers.IO) {
+                    api.commentsByAuthor(author = s.userId, page = 1, perPage = 20)
+                }
+                myComments = cResp.body().orEmpty()
+                myCommentsTotal = cResp.headers()["X-WP-Total"]?.toIntOrNull() ?: myComments.size
+                withContext(Dispatchers.IO) { Cache.saveAll(app, myPosts) }
+            }
+            myLoading = false
+        }
+    }
+
+    /** 我的文章翻页 */
+    fun loadMoreMyPosts() {
+        val s = session ?: return
+        if (myLoadingMore || myPosts.size >= myPostsTotal) return
+        myLoadingMore = true
+        viewModelScope.launch {
+            val next = myPage + 1
+            runCatching {
+                val resp = withContext(Dispatchers.IO) {
+                    api.postsByAuthor(author = s.userId, page = next, perPage = 20)
+                }
+                val list = resp.body().orEmpty()
+                myPosts = myPosts + list
+                myPage = next
+                withContext(Dispatchers.IO) { Cache.saveAll(app, list) }
+            }
+            myLoadingMore = false
+        }
+    }
+
+    /** 草稿箱（仅可管理内容的账号可见） */
+    var draftPosts by mutableStateOf<List<Post>>(emptyList())
+        private set
+    var draftLoading by mutableStateOf(false)
+        private set
+
+    fun loadDrafts() {
+        if (!canManage) return
+        draftLoading = true
+        viewModelScope.launch {
+            runCatching {
+                val resp = withContext(Dispatchers.IO) {
+                    api.listPosts(
+                        page = 1,
+                        perPage = 20,
+                        categories = null,
+                        search = null,
+                        status = "draft"
+                    )
+                }
+                draftPosts = resp.body().orEmpty()
+                withContext(Dispatchers.IO) { Cache.saveAll(app, draftPosts) }
+            }
+            draftLoading = false
+        }
+    }
+
+    /** 文章是否已缓存正文（离线可读） */
+    fun offlineReady(id: Int): Boolean = Cache.has(app, id)
+
+    // ---------------------------- 离线正文 ----------------------------
+
+    /** 已缓存正文的文章数 */
+    fun offlineCount(): Int = Cache.cachedCount(app)
+
+    /** 离线占用字节数 */
+    fun offlineBytes(): Long = Cache.size(app)
+
+    /**
+     * 收藏但还没缓存正文的文章，补齐正文，保证断网可在收藏页里读。
+     * 返回成功补齐的条数。
+     */
+    suspend fun syncOffline(ids: Collection<Int>): Int = withContext(Dispatchers.IO) {
+        val missing = ids.filter { !Cache.has(app, it) }
+        if (missing.isEmpty()) return@withContext 0
+        var ok = 0
+        missing.forEach { id ->
+            runCatching { api.getPost(id) }
+                .onSuccess { Cache.save(app, it); ok++ }
+        }
+        ok
+    }
+
+    // ---------------------------- 评论 ----------------------------
+
+    /** 发表评论 / 回复。未登录时返回失败，由 UI 引导登录 */
+    suspend fun submitComment(postId: Int, content: String, parent: Int = 0): Result<Comment> =
+        authRepo.postComment(postId, content, parent)
 
     /** 把登录/注册类错误翻译成人话 */
     private fun readableAuthError(e: Throwable, action: String): String {

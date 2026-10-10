@@ -68,11 +68,25 @@ data class Author(
 data class Comment(
     val id: Int = 0,
     val post: Int = 0,
+    /** 楼中楼：父评论 id，0 表示顶层 */
+    val parent: Int = 0,
+    val author: Int = 0,
     val author_name: String = "",
+    val status: String = "approved",
     val date: String = "",
     val link: String = "",
     val content: Rendered = Rendered(),
     val author_avatar_urls: Map<String, String>? = null
+) {
+    /** 刚发出、还没通过审核的评论 */
+    val pending: Boolean get() = status != "approved" && status != "approve"
+}
+
+/** 发表评论的请求体 */
+data class NewComment(
+    val post: Int,
+    val content: String,
+    val parent: Int = 0
 )
 
 data class Category(
