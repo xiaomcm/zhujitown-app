@@ -99,6 +99,7 @@ fun SettingsScreen(vm: AppViewModel, onOpenAccount: () -> Unit) {
                             }
                             Text(
                                 text = when (s.backend) {
+                                    AuthBackend.DUX.id -> "已登录 · 站点账号（dux）"
                                     AuthBackend.PLUGIN.id -> "已登录 · 站点账号"
                                     AuthBackend.JWT_PLUGIN.id -> "已登录 · JWT"
                                     else -> "已登录 · 应用密码"

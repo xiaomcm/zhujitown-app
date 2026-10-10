@@ -188,7 +188,11 @@ object ApiClient {
                     Credentials.basic(session.basicUser, session.basicPass) else null
             else -> null
         }
-        val key = baseUrl(prefs.siteUrl) + "|" + (authHeader ?: "anon")
+        // dux 原生登录：用 wordpress_logged_in_ Cookie 维持身份（读接口不需要 nonce）
+        val cookieHeader: String? =
+            if (session != null && session.backend == AuthBackend.DUX.id)
+                session.cookie.takeIf { it.isNotBlank() } else null
+        val key = baseUrl(prefs.siteUrl) + "|" + (authHeader ?: "anon") + "|" + (cookieHeader ?: "-")
         service?.let { if (key == currentKey) return it }
 
         val builder = OkHttpClient.Builder()
@@ -201,7 +205,10 @@ object ApiClient {
                 val req = chain.request().newBuilder()
                     .header("User-Agent", "ZhujitownAndroid/1.0 (+https://www.zhujitown.com)")
                     .header("Accept", "application/json")
-                    .apply { authHeader?.let { header("Authorization", it) } }
+                    .apply {
+                        authHeader?.let { header("Authorization", it) }
+                        cookieHeader?.let { header("Cookie", it) }
+                    }
                     .build()
                 chain.proceed(req)
             }

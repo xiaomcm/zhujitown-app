@@ -83,12 +83,22 @@ class Prefs(context: Context) {
             ApiClient.invalidate()
         }
 
+    /** dux / WordPress 原生登录的会话 Cookie（wordpress_logged_in_xxx） */
+    var cookie: String
+        get() = sp.getString(KEY_COOKIE, null).orEmpty()
+        set(value) {
+            sp.edit().putString(KEY_COOKIE, value).apply()
+            ApiClient.invalidate()
+        }
+
     val session: Session?
         get() {
             val b = authBackend
             if (b.isBlank()) return null
             val t = token
             if (b == AuthBackend.PLUGIN.id && t.isBlank()) return null
+            // dux 原生登录没有令牌，靠 Cookie 维持会话
+            if (b == AuthBackend.DUX.id && cookie.isBlank()) return null
             return Session(
                 token = t,
                 userId = uid,
@@ -102,7 +112,8 @@ class Prefs(context: Context) {
                 expireAt = expireAt,
                 // 应用密码模式下必须回填，否则重启后 Basic Auth 头会丢失（草稿箱/评论失效）
                 basicUser = basicUser,
-                basicPass = basicPass
+                basicPass = basicPass,
+                cookie = cookie
             )
         }
 
@@ -125,6 +136,7 @@ class Prefs(context: Context) {
                 putString(KEY_BASIC_USER, "")
                 putString(KEY_BASIC_PASS, "")
             }
+            putString(KEY_COOKIE, if (s.backend == AuthBackend.DUX.id) s.cookie else "")
         }.apply()
         ApiClient.invalidate()
     }
@@ -143,6 +155,7 @@ class Prefs(context: Context) {
             putString(KEY_BACKEND, "")
             putString(KEY_BASIC_USER, "")
             putString(KEY_BASIC_PASS, "")
+            putString(KEY_COOKIE, "")
         }.apply()
         ApiClient.invalidate()
     }
@@ -205,5 +218,6 @@ class Prefs(context: Context) {
         private const val KEY_BACKEND = "auth_backend"
         private const val KEY_BASIC_USER = "auth_basic_user"
         private const val KEY_BASIC_PASS = "auth_basic_pass"
+        private const val KEY_COOKIE = "auth_cookie"
     }
 }

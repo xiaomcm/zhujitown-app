@@ -143,7 +143,14 @@ private fun ProfileCard(vm: AppViewModel) {
                 modifier = Modifier.padding(top = 14.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Badge(if (s.backend == AuthBackend.PLUGIN.id) "站点账号" else "应用密码")
+                Badge(
+                    when (s.backend) {
+                        AuthBackend.DUX.id -> "站点账号 · dux"
+                        AuthBackend.PLUGIN.id -> "站点账号"
+                        AuthBackend.JWT_PLUGIN.id -> "JWT"
+                        else -> "应用密码"
+                    }
+                )
                 if (s.canManage) Badge("可查看草稿")
             }
 
@@ -371,9 +378,11 @@ private fun BackendHint(vm: AppViewModel) {
         Column(modifier = Modifier.padding(14.dp)) {
             Text(
                 text = if (vm.pluginReady) {
-                    "已检测到站点启用了 ZhuJiTown Auth 插件，可直接用站点账号登录${if (vm.registrationOpen) "、注册" else ""}。"
+                    "登录方式与网站完全一致（dux 主题的 WordPress 原生账号）：直接填站点用户名/邮箱 + 密码即可，不需要应用密码。站点同时启用了 ZhuJiTown Auth 插件。"
                 } else {
-                    "站点尚未启用 ZhuJiTown Auth 插件，当前使用 WordPress 自带的「应用程序密码」登录：到网站后台 → 用户 → 个人资料里生成一串应用密码，填在这里的用户名 / 密码即可。"
+                    "登录方式与网站完全一致（dux 主题的 WordPress 原生账号）：直接填站点用户名/邮箱 + 密码即可" +
+                        "${if (vm.registrationOpen) "，也可以在这里注册新账号" else ""}。" +
+                        "若你的账号单独生成过应用密码，填它同样能登录。"
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
