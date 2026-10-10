@@ -14,7 +14,7 @@ PROJECT="ZhuJiTown.xcodeproj"
 SCHEME="ZhuJiTown"
 CONFIG="Release"
 BUNDLE_ID="com.zhujitown.app"
-VERSION="1.0.0"
+VERSION="1.2.0"
 BUILD_DIR="build"
 OUT_DIR="outputs"
 
