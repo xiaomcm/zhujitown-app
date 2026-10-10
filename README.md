@@ -46,6 +46,19 @@ outputs/zhujitown-auth.zip   ← 后台「插件 → 安装插件 → 上传插�
 
 iOS 未签名 IPA 用 AltStore / Sideloadly / 巨魔安装即可免证书上机。
 
+### Actions 被禁用时的备用通道：Codemagic
+
+当前 GitHub 账号被 GitHub **账号级**禁用了 Actions（`workflow_dispatch` 返回
+`Actions has been disabled for this user`），仓库级权限开关无效。此时改用 Codemagic ——
+它直接从 GitHub 拉代码构建，**不经过 GitHub Actions**：
+
+1. 打开 https://codemagic.io，用 GitHub 账号登录
+2. Add application → GitHub → 选本仓库 → 类型选 iOS App
+3. 由于仓库里有 `codemagic.yaml`，会自动读出两个 workflow，点 `构建 iOS IPA（免证书）` → Start new build
+4. 跑完在 Artifacts 下载 `ZhuJiTown-v1.2.0-unsigned.ipa`
+
+免费额度 500 分钟 Mac mini M2 / 月，一次 iOS 构建约 5–8 分钟，够用。
+
 ## 四、构建环境（Windows 本机已装）
 
 JDK 17、Android SDK 34、Gradle 8.7、Swift 5.10.1 工具链都在 `~/.workbuddy/binaries/` 下，无需重复安装。
