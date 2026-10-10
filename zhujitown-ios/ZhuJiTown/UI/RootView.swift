@@ -44,7 +44,7 @@ struct RootView: View {
                 .tabItem { Label("收藏", systemImage: "star.fill") }
                 .tag(Tab.favorites)
 
-            SettingsView()
+            ProfileView()
                 .tabItem { Label("我的", systemImage: "person.crop.circle.fill") }
                 .tag(Tab.settings)
         }

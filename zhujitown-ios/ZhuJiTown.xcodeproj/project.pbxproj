@@ -22,10 +22,16 @@
 		635A60AD8B293373ACA34043 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E3E18FE612FA246988024 /* CachedImage.swift */; };
 		1637A4C5A8D238A4C7EC4EA3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F71388FDF823167DB9360E /* CategoriesView.swift */; };
 		D72E3FAC0C57843BC40FAF3A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92FDAD3A36A9B682BFB093C /* DetailView.swift */; };
+		64F60C0E5D90A25996371CCC /* DraftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB2864F2ADC776AC826F525 /* DraftsView.swift */; };
 		8B95C079C3164E421D2FBFA3 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB922BC47A34741405DA6E4 /* FavoritesView.swift */; };
 		ED411EE15995B7C6973607C3 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB08E75A96ECB56026BED16 /* FeedView.swift */; };
+		D43FAB4182150FBA9DE89FDE /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8D428D69F9F6FFA5FD39C /* HistoryView.swift */; };
+		94409B834EF7940BFAE91D49 /* MyCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB076AD03F2999B6B5BE634 /* MyCommentsView.swift */; };
+		E26576CD1783D9D77E77D4C5 /* MyPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB8C7474A59750110AB6A6 /* MyPostsView.swift */; };
 		F6B90CF8EC739AB7BF99DCD4 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */; };
 		6C71D776EDC6E5494AAEC186 /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */; };
+		9EE5460EB4E849E2DAC38B2D /* PostDetailLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E3A8D4D788751F7D19E99 /* PostDetailLoader.swift */; };
+		FB12D9F991AFAC26420D6738 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AA1DCE7708D89A779494A /* ProfileView.swift */; };
 		754A9CA7D06FD8B96794E1ED /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF814F39692E7277BA09693 /* RichText.swift */; };
 		9CDDAFAA3981E55BDD6AF5FE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE9287A904FFF51F7D9E006 /* RootView.swift */; };
 		10DBD14F872FA7F78F94A0B6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */; };
@@ -51,10 +57,16 @@
 		DD7E3E18FE612FA246988024 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		27F71388FDF823167DB9360E /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		C92FDAD3A36A9B682BFB093C /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		1CB2864F2ADC776AC826F525 /* DraftsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftsView.swift; sourceTree = "<group>"; };
 		3EB922BC47A34741405DA6E4 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		1EB08E75A96ECB56026BED16 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		1FB8D428D69F9F6FFA5FD39C /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		CAB076AD03F2999B6B5BE634 /* MyCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentsView.swift; sourceTree = "<group>"; };
+		CBCB8C7474A59750110AB6A6 /* MyPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsView.swift; sourceTree = "<group>"; };
 		50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
 		807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		F69E3A8D4D788751F7D19E99 /* PostDetailLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailLoader.swift; sourceTree = "<group>"; };
+		9A3AA1DCE7708D89A779494A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0FF814F39692E7277BA09693 /* RichText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
 		8FE9287A904FFF51F7D9E006 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -132,10 +144,16 @@
 					DD7E3E18FE612FA246988024 /* CachedImage.swift */,
 					27F71388FDF823167DB9360E /* CategoriesView.swift */,
 					C92FDAD3A36A9B682BFB093C /* DetailView.swift */,
+					1CB2864F2ADC776AC826F525 /* DraftsView.swift */,
 					3EB922BC47A34741405DA6E4 /* FavoritesView.swift */,
 					1EB08E75A96ECB56026BED16 /* FeedView.swift */,
+					1FB8D428D69F9F6FFA5FD39C /* HistoryView.swift */,
+					CAB076AD03F2999B6B5BE634 /* MyCommentsView.swift */,
+					CBCB8C7474A59750110AB6A6 /* MyPostsView.swift */,
 					50AFA0EC9D2DDDF65051F8E3 /* PhotoViewer.swift */,
 					807B6E61E38D4D0AD37B9EE9 /* PostCard.swift */,
+					F69E3A8D4D788751F7D19E99 /* PostDetailLoader.swift */,
+					9A3AA1DCE7708D89A779494A /* ProfileView.swift */,
 					0FF814F39692E7277BA09693 /* RichText.swift */,
 					8FE9287A904FFF51F7D9E006 /* RootView.swift */,
 					7B90CD7A6159E0F6FBA7655A /* SettingsView.swift */,
@@ -260,10 +278,16 @@
 				635A60AD8B293373ACA34043 /* CachedImage.swift in Sources */,
 				1637A4C5A8D238A4C7EC4EA3 /* CategoriesView.swift in Sources */,
 				D72E3FAC0C57843BC40FAF3A /* DetailView.swift in Sources */,
+				64F60C0E5D90A25996371CCC /* DraftsView.swift in Sources */,
 				8B95C079C3164E421D2FBFA3 /* FavoritesView.swift in Sources */,
 				ED411EE15995B7C6973607C3 /* FeedView.swift in Sources */,
+				D43FAB4182150FBA9DE89FDE /* HistoryView.swift in Sources */,
+				94409B834EF7940BFAE91D49 /* MyCommentsView.swift in Sources */,
+				E26576CD1783D9D77E77D4C5 /* MyPostsView.swift in Sources */,
 				F6B90CF8EC739AB7BF99DCD4 /* PhotoViewer.swift in Sources */,
 				6C71D776EDC6E5494AAEC186 /* PostCard.swift in Sources */,
+				9EE5460EB4E849E2DAC38B2D /* PostDetailLoader.swift in Sources */,
+				FB12D9F991AFAC26420D6738 /* ProfileView.swift in Sources */,
 				754A9CA7D06FD8B96794E1ED /* RichText.swift in Sources */,
 				9CDDAFAA3981E55BDD6AF5FE /* RootView.swift in Sources */,
 				10DBD14F872FA7F78F94A0B6 /* SettingsView.swift in Sources */,

@@ -30,6 +30,19 @@ object Cache {
     fun loadAll(context: Context, ids: Collection<Int>): List<Post> =
         ids.mapNotNull { load(context, it) }
 
+    /** 是否已缓存该文章正文（离线可读） */
+    fun has(context: Context, id: Int): Boolean = file(context, id).exists()
+
+    /** 已缓存正文的文章数 */
+    fun cachedCount(context: Context): Int =
+        runCatching { dir(context).listFiles()?.count { it.isFile && it.extension == "json" } ?: 0 }
+            .getOrDefault(0)
+
+    /** 删除单篇离线正文 */
+    fun remove(context: Context, id: Int) {
+        runCatching { file(context, id).delete() }
+    }
+
     fun clear(context: Context) {
         runCatching { dir(context).deleteRecursively() }
     }

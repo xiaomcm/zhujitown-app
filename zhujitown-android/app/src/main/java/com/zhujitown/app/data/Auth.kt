@@ -129,6 +129,20 @@ interface AuthService {
     @FormUrlEncoded
     suspend fun lostPassword(@Field("user_login") login: String): ResponseBody
 
+    /**
+     * 发表评论（自建插件路径专用）。
+     * WP 原生 /wp/v2/comments 不认我们的 HMAC 令牌，所以由插件代发：
+     * 服务端校验令牌 → 取出用户 → wp_new_comment() 以该用户身份创建。
+     */
+    @POST("zhujitown/v1/comment")
+    @FormUrlEncoded
+    suspend fun pluginComment(
+        @Header("Authorization") auth: String,
+        @Field("post") post: Int,
+        @Field("content") content: String,
+        @Field("parent") parent: Int = 0
+    ): Comment
+
     // 兼容常见的 JWT Authentication for WP REST API 插件
     @POST("jwt-auth/v1/token")
     @FormUrlEncoded
@@ -302,6 +316,24 @@ class AuthRepository(private val context: Context) {
     suspend fun lostPassword(login: String): Result<Unit> = withContext(Dispatchers.IO) {
         runCatching { api.lostPassword(login.trim()) }.map { Unit }
     }
+
+    /**
+     * 发表评论 / 回复。按登录后端选路：
+     *  - 自建插件 → zhujitown/v1/comment（服务端代发）
+     *  - 应用密码 / JWT → WP 原生 /wp/v2/comments（ApiClient 已注入 Authorization）
+     */
+    suspend fun postComment(postId: Int, content: String, parent: Int = 0): Result<Comment> =
+        withContext(Dispatchers.IO) {
+            val s = prefs.session
+                ?: return@withContext Result.failure(IOException("请先登录后再评论"))
+            runCatching {
+                if (s.backend == AuthBackend.PLUGIN.id) {
+                    api.pluginComment("Bearer ${s.token}", postId, content.trim(), parent)
+                } else {
+                    ApiClient.get(context).postComment(NewComment(postId, content.trim(), parent))
+                }
+            }
+        }
 
     /** 校验已有会话是否仍然有效，过期返回 null */
     suspend fun validate(): Session? {

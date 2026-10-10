@@ -160,6 +160,43 @@ final class WPClient {
         return list
     }
 
+    /// 按作者取文章（个人中心「我的文章」/「草稿箱」）
+    func postsByAuthor(
+        author: Int,
+        page: Int = 1,
+        perPage: Int = 15,
+        status: String? = nil
+    ) async throws -> PageResult<Post> {
+        var items: [URLQueryItem] = [
+            .init(name: "author", value: "\(author)"),
+            .init(name: "page", value: "\(page)"),
+            .init(name: "per_page", value: "\(perPage)"),
+            .init(name: "_embed", value: "true"),
+            .init(name: "orderby", value: "date"),
+            .init(name: "order", value: "desc")
+        ]
+        if let st = status, !st.isEmpty { items.append(.init(name: "status", value: st)) }
+        return try await fetchPaged("posts", query: items)
+    }
+
+    /// 按作者取评论（个人中心「我的评论」）
+    func commentsByAuthor(
+        author: Int,
+        page: Int = 1,
+        perPage: Int = 15,
+        status: String = "approve"
+    ) async throws -> PageResult<Comment> {
+        let items: [URLQueryItem] = [
+            .init(name: "author", value: "\(author)"),
+            .init(name: "page", value: "\(page)"),
+            .init(name: "per_page", value: "\(perPage)"),
+            .init(name: "orderby", value: "date"),
+            .init(name: "order", value: "desc"),
+            .init(name: "status", value: status)
+        ]
+        return try await fetchPaged("comments", query: items)
+    }
+
     /// 媒体详情（封面图取大图时用）
     func media(id: Int) async throws -> Media {
         let m: Media = try await fetch("media/\(id)", query: [])

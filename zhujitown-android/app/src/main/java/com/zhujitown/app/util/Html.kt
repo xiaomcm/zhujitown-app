@@ -29,4 +29,20 @@ object Html {
             SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(d!!)
         }.getOrElse { iso.take(10) }
     }
+
+    /** 相对时间：刚刚 / N 分钟前 / N 小时前 / N 天前 / yyyy-MM-dd（入参为毫秒时间戳） */
+    fun relative(ts: Long): String {
+        if (ts <= 0L) return ""
+        val diff = System.currentTimeMillis() - ts
+        val min = 60_000L
+        val hour = 60 * min
+        val day = 24 * hour
+        return when {
+            diff < min -> "刚刚"
+            diff < hour -> "${diff / min} 分钟前"
+            diff < day -> "${diff / hour} 小时前"
+            diff < 30 * day -> "${diff / day} 天前"
+            else -> SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(java.util.Date(ts))
+        }
+    }
 }
