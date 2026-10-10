@@ -33,21 +33,11 @@ workflows:
     artifacts:
       - zhujitown-ios/outputs/**/*.ipa
       - outputs/**/*.zip
-    publishing:
-      email:
-        recipients:
-          - 34995549@qq.com
-        notify:
-          success: true
-          failure: true
 
   android-apk:
     name: 构建 Android APK
     max_build_duration: 60
     instance_type: mac_mini_m2
-    environment:
-      android_signing:
-        - zhujitown_keystore
     scripts:
       - name: 写入站点地址
         script: |
